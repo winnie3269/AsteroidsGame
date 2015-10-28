@@ -1,15 +1,28 @@
-//your variable declarations here
+Spaceship silly=new Spaceship();//your variable declarations here
 public void setup() 
 {
-  //your code here
+  size(500,500);
+  background(0);//your code here
 }
 public void draw() 
 {
-  //your code here
+  sill.accelerate();
+  silly.move();
+  silly.show();//your code here
 }
-class SpaceShip //extends Floater  
+class SpaceShip extends Floater
 {   
-    //your code here
+   public Spaceship()
+   {
+     corners=
+     xCorners[]=
+     yCorners[]=
+     xCorners[]=
+     yCorners[]=
+     xCorners[]=
+     yCorners[]=
+     myColor=color(255,0,0);
+     //your code here
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
@@ -87,4 +100,3 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     endShape(CLOSE);  
   }   
 } 
-
