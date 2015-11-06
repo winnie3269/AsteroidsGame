@@ -42,6 +42,8 @@ public void keyPressed()
   {
     silly.setX((int)(Math.random()*500)); 
     silly.setY((int)(Math.random()*500)); 
+    silly.myDirectionX=0;
+    silly.myDirectionY=0;
     silly.setPointDirection((int)(Math.random()*360));
   }
 }
