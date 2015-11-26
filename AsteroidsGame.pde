@@ -1,8 +1,11 @@
 SpaceShip silly=new SpaceShip();
-Asteroids[] shower=new Asteroids[5];
-Stars[] countStars= new Stars[50];//your variable declarations here
+//Asteroids[] shower=new Asteroids[5];
+ArrayList <Asteroids> shower;
+Stars[] countStars= new Stars[50];
+boolean badEnd;//your variable declarations here
 public void setup() 
 {
+  badEnd=false;
   size(500, 500);
   background(0);
   noStroke();
@@ -10,24 +13,52 @@ public void setup()
   {
     countStars[i]= new Stars();
   }
-  for (int i=0;i<shower.length;i++)
+  shower= new ArrayList<Asteroids>();
+  for (int i=0; i<5; i++)
   {
-    shower[i]=new Asteroids();
+    shower.add(new Asteroids());
   }//your code here
 }
 public void draw() 
 {
   background(0); 
+  if (badEnd==true)
+  {
+    for (int i=0; i<shower.size(); i++)
+    {
+      shower.get(i).setDirectionX(0);
+      shower.get(i).setDirectionY(0);
+      silly.setDirectionX(0);
+      silly.setDirectionY(0);
+      textAlign(CENTER);
+      text("BAD END", 250, 250);
+   sd }
+  }
   silly.move(); 
   silly.show(); 
+  for (int i=0; i<shower.size(); i++)
+  {
+    if (dist(shower.get(i).getX(), shower.get(i).getY(), silly.getX(), silly.getY())<20)
+    {
+      shower.remove(i);
+      badEnd=true;
+    } else
+    {
+      shower.get(i).show();
+      shower.get(i).move();
+    }
+  }
+
   for (int i=0; i<countStars.length; i++)
   {
     countStars[i].show();
   }
-  for (int i=0; i<shower.length; i++)
+  for (int i=0; i<shower.size(); i++)
   {
-    shower[i].show();
-    shower[i].move();
+    //shower[i].show();
+    //shower[i].move();
+    shower.get(i).show();
+    shower.get(i).move();
   }//your code here
 }
 public void keyPressed()
