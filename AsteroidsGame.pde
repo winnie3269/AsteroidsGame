@@ -17,7 +17,7 @@ public void setup()
   for (int i=0; i<5; i++)
   {
     shower.add(new Asteroids());
-  }//your code here
+  }
 }
 public void draw() 
 {
@@ -26,13 +26,12 @@ public void draw()
   {
     for (int i=0; i<shower.size(); i++)
     {
-      shower.get(i).setDirectionX(0);
-      shower.get(i).setDirectionY(0);
       silly.setDirectionX(0);
       silly.setDirectionY(0);
       textAlign(CENTER);
       text("BAD END", 250, 250);
-   sd }
+      text("Click to restart.", 256, 290);
+    }
   }
   silly.move(); 
   silly.show(); 
@@ -45,7 +44,8 @@ public void draw()
     } else
     {
       shower.get(i).show();
-      shower.get(i).move();
+      if(badEnd == false)
+         shower.get(i).move();
     }
   }
 
@@ -84,6 +84,21 @@ public void keyPressed()
     silly.setX((int)(Math.random()*500)); 
     silly.setY((int)(Math.random()*500)); 
     silly.setPointDirection((int)(Math.random()*360));
+  }
+}
+public void mousePressed()
+{
+  if (mousePressed==true)
+  {
+    for (int i=0; i<shower.size(); i++)
+    {
+      background(0);
+      shower.get(i).show();
+      shower.get(i).move();
+      //silly.setDirectionX(0);
+      //silly.setDirectionY(0);
+      badEnd=false;
+    }
   }
 }
 class SpaceShip extends Floater
