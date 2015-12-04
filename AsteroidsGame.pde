@@ -2,7 +2,7 @@ SpaceShip silly=new SpaceShip();
 //Asteroids[] shower=new Asteroids[5];
 ArrayList <Asteroids> shower;
 Stars[] countStars= new Stars[50];
-boolean badEnd;//your variable declarations here
+public boolean badEnd;//your variable declarations here
 public void setup() 
 {
   badEnd=false;
