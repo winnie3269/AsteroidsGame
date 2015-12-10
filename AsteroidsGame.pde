@@ -1,7 +1,8 @@
-SpaceShip silly=new SpaceShip();
+public SpaceShip silly=new SpaceShip();
 //Asteroids[] shower=new Asteroids[5];
-ArrayList <Asteroids> shower;
-Stars[] countStars= new Stars[50];
+public ArrayList <Asteroids> shower;
+public Stars[] countStars= new Stars[50];
+public ArrayList <Bullets> billy=new ArrayList <Bullets>();
 public boolean badEnd;//your variable declarations here
 public void setup() 
 {
@@ -44,8 +45,8 @@ public void draw()
     } else
     {
       shower.get(i).show();
-      if(badEnd == false)
-         shower.get(i).move();
+      if (badEnd == false)
+        shower.get(i).move();
     }
   }
 
@@ -60,30 +61,50 @@ public void draw()
     shower.get(i).show();
     shower.get(i).move();
   }//your code here
+  for (int i=0; i<billy.size(); i++)
+  {
+    billy.get(i).show();
+    billy.get(i).move();
+  }
+  for (int i=0; i<shower.size(); i++)
+  {
+    for (int h=0; h<billy.size(); h++)
+    {
+      if (dist(shower.get(i).getX(), shower.get(i).getY(), billy.get(h).getX(), billy.get(h).getY())<20)
+      {
+        shower.remove(i);
+        billy.remove(h);
+      }
+    }
+  }
 }
 public void keyPressed()
 {
   if (keyCode==RIGHT)
   {
-    silly.rotate(5);
+    silly.rotate(10);
   }
   if (keyCode==LEFT)
   {
-    silly.rotate(-5);
+    silly.rotate(-10);
   }
   if (keyCode==UP)
   {
-    silly.accelerate(0.1);
+    silly.accelerate(0.2);
   }
   if (keyCode==DOWN)
   {
-    silly.accelerate(-0.1);
+    silly.accelerate(-0.2);
   }
   if (key==' ')
   {
     silly.setX((int)(Math.random()*500)); 
     silly.setY((int)(Math.random()*500)); 
     silly.setPointDirection((int)(Math.random()*360));
+  }
+  if (key=='r')
+  {
+    billy.add(new Bullets(silly));
   }
 }
 public void mousePressed()
@@ -242,6 +263,62 @@ class Asteroids extends Floater
   {
     rotate(rotSpeed);
     super.move();
+  }
+}
+class Bullets extends Floater
+{
+  private int myColor;
+  private double dRadians;
+  public Bullets(SpaceShip theShip)
+  {
+    myCenterX=theShip.getX();
+    myCenterY=theShip.getY();
+    myPointDirection=theShip.getPointDirection();
+    dRadians =myPointDirection*(Math.PI/180);
+    myDirectionX=5*Math.cos(dRadians) + theShip.getDirectionX();
+    myDirectionY=5*Math.sin(dRadians) + theShip.getDirectionY();
+    myColor=color(255, 0, 0);
+  }
+  public void show()
+  {
+    fill(myColor);
+    noStroke();
+    ellipse((int)myCenterX, (int)myCenterY, 5, 5);
+  }
+  public void move()
+  {
+    myCenterX+=myDirectionX;
+    myCenterY+=myDirectionY;
+  }
+  public void setX(int x) {
+    myCenterX=x;
+  }
+  public int getX() {
+    return (int)myCenterX;
+  }
+  public void setY(int y) {
+    myCenterY=y;
+  }
+  public int getY() {
+    return (int)myCenterY;
+  }
+  public void setDirectionX(double x) {
+    myDirectionX=x;
+  }
+  public double getDirectionX() {
+    return myDirectionX;
+  }
+  public void setDirectionY(double y) {
+    myDirectionY=y;
+  }
+  public double getDirectionY() {
+    return myDirectionY;
+  }
+  public void setPointDirection(int degrees) {
+    myPointDirection=degrees;
+  }
+  public double getPointDirection() {
+    return myPointDirection;
   }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
